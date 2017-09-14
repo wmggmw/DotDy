@@ -5,4 +5,5 @@ package com.wmg.ddd.dotdy;
  */
 
 public class TestClass {
+    private String id;
 }
