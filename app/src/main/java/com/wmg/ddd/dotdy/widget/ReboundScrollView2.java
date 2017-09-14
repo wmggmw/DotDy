@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
+/**
+ * 仿ios可上提下拉的ScrollView
+ * Ref: http://blog.csdn.net/u013598660/article/details/43950219
+ */
 public class ReboundScrollView2 extends ScrollView {
 
 
