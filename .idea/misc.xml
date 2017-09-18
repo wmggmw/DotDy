@@ -60,6 +60,17 @@
     <option name="id" value="Android" />
   </component>
   <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$/app">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="trunkUrl" value="https://172.16.1.37/svn/upcoa1st/03%20%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/JC2016100001(%E4%BC%81%E4%B8%9A%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86)/app/app%E6%8E%A5%E5%8F%A3/AsCodeExamp/DotDy/app" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="masterDetails">
