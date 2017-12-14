@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DotDy</string>
+    
+    <string name="data">数据</string>
+    <string name="statistics">统计</string>
+    <string name="community">社区</string>
+    <string name="me">我的</string>
+    
+    <string name="create_type">创建类型</string>
 </resources>

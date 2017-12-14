@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- 主视图 -->
+        <include
+            layout="@layout/layout_simple_style_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <!-- 侧边菜单 -->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:itemTextColor="@color/textColor_menu_black"
+            app:menu="@menu/layout_slide_menu"/>
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>

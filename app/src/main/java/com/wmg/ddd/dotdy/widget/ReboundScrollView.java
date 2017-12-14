@@ -2,6 +2,7 @@ package com.wmg.ddd.dotdy.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -41,6 +42,13 @@ public class ReboundScrollView extends ScrollView {
     //如果按下时不能上拉和下拉， 会在手指移动时更新为当前手指的Y值
     private float startY;
 
+    /**
+     * 累计位移
+     */
+    private float accumDis = 0;
+
+    private float delDis = 0;
+
     //用于记录正常的布局位置
     private Rect originalRect = new Rect();
 
@@ -55,6 +63,20 @@ public class ReboundScrollView extends ScrollView {
 
     private ViewConfiguration viewConfiguration;
 
+//    private MulFingerSet mulFingerSet;
+
+    private RecyclerViewCanScroll rvBottomListener;
+
+    /**
+     * 滑动状态记录
+     * -1-位于顶部 0-位于之间 1-位于底部
+     */
+    private int scrollState = 0;
+
+    private final int TOP = -1, MIDDLE = 0, BOTTOM = 1;
+
+    private RecyclerView recyclerView;
+
     public ReboundScrollView(Context context) {
         super(context);
     }
@@ -62,10 +84,22 @@ public class ReboundScrollView extends ScrollView {
     public ReboundScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         viewConfiguration = ViewConfiguration.get(context);
+//        mulFingerSet = new MulFingerSet();
+    }
+
+    /**
+     * 设置是否滑动到底部或顶部的监听器
+     * @param recyveclerView
+     * @param listener
+     */
+    public void addRecyclerViewReachBottomListener(RecyclerView recyveclerView, RecyclerViewCanScroll listener){
+        this.recyclerView = recyveclerView;
+        this.rvBottomListener = listener;
     }
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         if (getChildCount() > 0) {
             contentView = getChildAt(0);
         }
@@ -91,24 +125,52 @@ public class ReboundScrollView extends ScrollView {
 
         int action = ev.getAction();
 
-        switch (action) {
-            case MotionEvent.ACTION_POINTER_DOWN:
-
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-
-                break;
+        switch (action & MotionEvent.ACTION_MASK) {
+//            case MotionEvent.ACTION_POINTER_DOWN:
+//
+//                startY = ev.getY();
+//
+//                if( ev.getPointerCount() > mulFingerSet.getFingerCount()){
+//                    //新手指加入
+//                    mulFingerSet.addNewFinger(startY);
+//                }
+//
+//
+//                Log.i("wmgPoint", "ACTION_POINTER_DOWN" + "   startY= "+startY);
+//                delDis = accumDis;
+//                break;
+//            case MotionEvent.ACTION_POINTER_UP:
+//                //有一个手指释放，根据此时的startY值，判断是哪一个手指，remove
+//                mulFingerSet.releaseFinger(startY);
+//                break;
             case MotionEvent.ACTION_DOWN:
-                Log.i("wmgPoint", "ACTION_DOWN");
                 //判断是否可以上拉和下拉
                 canPullDown = isCanPullDown();
                 canPullUp = isCanPullUp();
 
                 //记录按下时的Y值
+//                if( rvBottomListener != null){
+//                    if( !rvBottomListener.canScroll(1)) {
+//                        //RecyclerView是否位于底部
+//                        scrollState = BOTTOM;
+//                        startY = ev.getY();
+//                    } else if( !rvBottomListener.canScroll(-1)){
+//                        //RecyclerView是否位于顶部
+//                        scrollState = TOP;
+//                        startY = ev.getY();
+//                    } else {
+//                        scrollState = MIDDLE;
+//                        startY = -1;
+//                    }
+//                } else {
+//                    startY = ev.getY();
+//                }
                 startY = ev.getY();
+                Log.i("wmgPoint", "ACTION_DOWN" + "   startY= "+startY);
                 break;
 
             case MotionEvent.ACTION_UP:
+                accumDis = 0;
                 Log.i("wmgPoint", "ACTION_UP");
                 if(!isMoved) break;  //如果没有移动布局， 则跳过执行
 
@@ -142,7 +204,48 @@ public class ReboundScrollView extends ScrollView {
 
                 break;
             case MotionEvent.ACTION_MOVE:
+                //计算手指移动的距离
+                float nowY = ev.getY();
+                int deltaY = 0;
+                //注意，RecyvlerView位于顶部时，向上滑，RecyclerView动，ScrollView不动
+                //RecyvlerView位于底部时，向下滑，RecyclerView动，ScrollView不动
+                if( rvBottomListener != null){
+                    if( (!rvBottomListener.canScroll(1))){
+                        //位于底部
+                        if( ev.getY() - startY < 0){
+                            //向上滑，可行
+                            deltaY = (int) (nowY - startY);
+                            if( recyclerView != null) {
+//                                recyclerView.setFocusable(false);
+//                                setFocusable(true);
+//                                setFocusableInTouchMode(true);
+//                                requestFocus();
+                            }
+                        } else {
+                            //向下滑，不可行
+                            deltaY = 0;
+                        }
+                    } if( (!rvBottomListener.canScroll(-1))){
+                        //位于顶部
+                        if( ev.getY() - startY > 0){
+                            //向下滑，可行
+                            deltaY = (int) (nowY - startY);
+                        } else {
+                            //不可行
+                            deltaY = 0;
+                        }
+                    }else {
+                        //位于中间
+                        deltaY = (int) (nowY - startY);
+                    }
+                } else {
+
+                }
 //                Log.i("wmgPoint", "ACTION_MOVE");
+
+//                //手指在移动之前，根据ev.getY()判断是哪一个手指，得到它的endY，对startY进行重新赋值
+//                startY = mulFingerSet.recoverStartY(ev.getY());
+
                 //在移动的过程中， 既没有滚动到可以上拉的程度， 也没有滚动到可以下拉的程度
                 if(!canPullDown && !canPullUp) {
                     startY = ev.getY();
@@ -152,10 +255,8 @@ public class ReboundScrollView extends ScrollView {
                     break;
                 }
 
-                //计算手指移动的距离
-                float nowY = ev.getY();
-                int deltaY = (int) (nowY - startY);
-
+//                accumDis += deltaY;
+                Log.i("wmgDel", "nowY= " + nowY + "  startY= " + startY + "  deltaY= " + deltaY);
 //                if( Math.abs(deltaY) < viewConfiguration.getScaledTouchSlop())
 //                    break;
 
@@ -174,6 +275,8 @@ public class ReboundScrollView extends ScrollView {
                     isMoved = true;  //记录移动了布局
                 }
 
+
+
                 break;
             default:
                 break;
@@ -182,15 +285,37 @@ public class ReboundScrollView extends ScrollView {
         return super.dispatchTouchEvent(ev);
     }
 
+    private boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
+
 
     //判断是否滚动到顶部
     private boolean isCanPullDown() {
+        //
+        Log.i("wmgDam", "damValue getScrollY()= "+getScrollY());
         return getScrollY() == 0 ||
                 contentView.getHeight() < getHeight() + getScrollY();
     }
 
     //判断是否滚动到底部
     private boolean isCanPullUp() {
+        Log.i("wmgDam", "damValue getScrollY()2= "+getScrollY());
         return  contentView.getHeight() <= getHeight() + getScrollY();
     }
+
+    public interface RecyclerViewCanScroll{
+        /**
+         * 是否到达了底部或顶部
+         * @param direction 方向，-1-向顶部滑 1-向底部滑
+         * @return 返回false表示不能往上滑动，即代表到底部了;
+         *          返回false表示不能往下滑动，即代表到顶部了
+         */
+        boolean canScroll(int direction);
+    }
 }
+

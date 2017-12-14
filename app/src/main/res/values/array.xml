@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="array_main_tab">
+        <item>@string/data</item>
+        <item>@string/statistics</item>
+        <item>@string/community</item>
+        <item>@string/me</item>
+    </array>
+</resources>
