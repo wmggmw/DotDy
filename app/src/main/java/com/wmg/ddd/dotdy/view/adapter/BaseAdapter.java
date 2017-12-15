@@ -2,7 +2,7 @@ package com.wmg.ddd.dotdy.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.wmg.ddd.dotdy.bean.idata.AbsData;
+import com.wmg.ddd.dotdy.bean.idata.IRegularData;
 import com.wmg.ddd.dotdy.exception.ArrayNullExeception;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by wu-mingguang on 2017/9/18.
  */
 
-public abstract class BaseAdapter<T extends AbsData, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseAdapter<T extends IRegularData, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     private List<T> mDatas;
 

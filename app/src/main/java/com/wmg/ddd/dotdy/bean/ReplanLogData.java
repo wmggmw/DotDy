@@ -1,7 +1,5 @@
 package com.wmg.ddd.dotdy.bean;
 
-import com.wmg.ddd.dotdy.bean.idata.AbsData;
-
 /**
  * Created by 明光 on 2017/10/8.
  */

@@ -1,6 +1,6 @@
 package com.wmg.ddd.dotdy.bean;
 
-import com.wmg.ddd.dotdy.bean.idata.AbsData;
+import com.wmg.ddd.dotdy.bean.idata.IRegularData;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -15,7 +15,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 分步断点数据
  */
 @Entity
-public class StepBreakData implements AbsData{
+public class StepBreakData implements IRegularData {
 
     @Id
     /**

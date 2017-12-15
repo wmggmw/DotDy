@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.wmg.ddd.dotdy.R;
 import com.wmg.ddd.dotdy.bean.GoalData;
-import com.wmg.ddd.dotdy.bean.idata.AbsData;
+import com.wmg.ddd.dotdy.bean.idata.IRegularData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by wu-mingguang on 2017/9/18.
  */
 
-public class MainAdapter<T extends AbsData> extends BaseAdapter<T, MainAdapter.MainViewHolder> {
+public class MainAdapter<T extends IRegularData> extends BaseAdapter<T, MainAdapter.MainViewHolder> {
 
     public MainAdapter() {
 

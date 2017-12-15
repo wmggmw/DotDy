@@ -1,16 +1,10 @@
 package com.wmg.ddd.dotdy.bean.idata;
 
-import android.support.annotation.NonNull;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Generated;
-
 /**
  * Created by wu-mingguang on 2017/9/18.
  */
 
-public interface AbsData extends IData{
+public interface IRegularData extends IData{
 
     void setId(String id);
     String getId();

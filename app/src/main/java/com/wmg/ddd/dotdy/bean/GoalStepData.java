@@ -2,7 +2,7 @@ package com.wmg.ddd.dotdy.bean;
 
 import android.support.annotation.NonNull;
 
-import com.wmg.ddd.dotdy.bean.idata.AbsData;
+import com.wmg.ddd.dotdy.bean.idata.IRegularData;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -17,7 +17,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 目标或计划分步数据
  */
 @Entity
-public class GoalStepData implements AbsData, Comparable<GoalStepData>{
+public class GoalStepData implements IRegularData, Comparable<GoalStepData>{
 
     @Id
     /**

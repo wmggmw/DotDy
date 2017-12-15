@@ -1,6 +1,6 @@
 package com.wmg.ddd.dotdy.bean;
 
-import com.wmg.ddd.dotdy.bean.idata.AbsData;
+import com.wmg.ddd.dotdy.bean.idata.IRegularData;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Property;
@@ -10,7 +10,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by 明光 on 2017/10/25.
  */
 @Entity
-public class TypeData {
+public class TypeData implements IRegularData {
 
     @Property
     /**
@@ -46,36 +46,63 @@ public class TypeData {
     public TypeData() {
     }
 
-    public int getType() {
-        return this.type;
+    @Override
+    public void setId(String id) {
+
     }
 
-    public void setType(int type) {
-        this.type = type;
+    @Override
+    public String getId() {
+        return null;
     }
 
-    public String getTheme() {
-        return this.theme;
-    }
-
+    @Override
     public void setTheme(String theme) {
-        this.theme = theme;
+
     }
 
-    public String getDefTheme() {
-        return this.defTheme;
+    @Override
+    public String getTheme() {
+        return null;
     }
 
-    public void setDefTheme(String defTheme) {
-        this.defTheme = defTheme;
-    }
-
-    public String getDes() {
-        return this.des;
-    }
-
+    @Override
     public void setDes(String des) {
-        this.des = des;
+
     }
 
+    @Override
+    public String getDes() {
+        return null;
+    }
+
+    @Override
+    public void setCreateTime(long createTime) {
+
+    }
+
+    @Override
+    public long getCreateTime() {
+        return 0;
+    }
+
+    @Override
+    public void setUpdateTime(long updateTime) {
+
+    }
+
+    @Override
+    public long getUpdateTime() {
+        return 0;
+    }
+
+    @Override
+    public void setIcon(String icon) {
+
+    }
+
+    @Override
+    public String getIcon() {
+        return null;
+    }
 }
