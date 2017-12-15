@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wmg.ddd.dotdy.R;
-
 import butterknife.ButterKnife;
 
 /**
@@ -31,8 +29,8 @@ public abstract class AbstractFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        initViewValues();
-//        doOnData();
+        initViewValues();
+        doOnData();
     }
 
     @NonNull
