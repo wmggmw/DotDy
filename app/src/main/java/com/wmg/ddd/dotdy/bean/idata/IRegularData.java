@@ -23,5 +23,8 @@ public interface IRegularData extends IData{
 
     void setIcon(String icon);
     String getIcon();
+
+    void setOrgIcon(String icon);
+    String getOrgIcon();
 }
 

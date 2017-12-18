@@ -3,6 +3,7 @@ package com.wmg.ddd.dotdy.bean;
 import com.wmg.ddd.dotdy.bean.idata.IRegularData;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -11,6 +12,9 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity
 public class TypeData implements IRegularData {
+
+    @Id
+    private String id;
 
     @Property
     /**
@@ -34,75 +38,127 @@ public class TypeData implements IRegularData {
      */
     private String des;
 
-    @Generated(hash = 833513446)
-    public TypeData(int type, String theme, String defTheme, String des) {
+    /**
+     * 数据创建时间
+     */
+    private long createTime;
+
+    /**
+     * 数据最新更新时间
+     */
+    private long updateTime;
+
+    /**
+     * 特征图标或缩略图
+     */
+    private String icon;
+
+    /**
+     * 大图或原图地址
+     */
+    private String orgIcon;
+
+    @Generated(hash = 1904715943)
+    public TypeData(String id, int type, String theme, String defTheme, String des,
+            long createTime, long updateTime, String icon, String orgIcon) {
+        this.id = id;
         this.type = type;
         this.theme = theme;
         this.defTheme = defTheme;
         this.des = des;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.icon = icon;
+        this.orgIcon = orgIcon;
     }
 
-    @Generated(hash = 2135787902)
+    @Generated(hash = 155981510)
     public TypeData() {
     }
 
     @Override
     public void setId(String id) {
-
+        this.id = id;
     }
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setTheme(String theme) {
-
+        this.theme = theme;
     }
 
     @Override
     public String getTheme() {
-        return null;
+        return theme;
     }
 
     @Override
     public void setDes(String des) {
-
+        this.des = des;
     }
 
     @Override
     public String getDes() {
-        return null;
+        return des;
     }
 
     @Override
     public void setCreateTime(long createTime) {
-
+        this.createTime = createTime;
     }
 
     @Override
     public long getCreateTime() {
-        return 0;
+        return createTime;
     }
 
     @Override
     public void setUpdateTime(long updateTime) {
-
+        this.updateTime = updateTime;
     }
 
     @Override
     public long getUpdateTime() {
-        return 0;
+        return updateTime;
     }
 
     @Override
     public void setIcon(String icon) {
-
+        this.icon = icon;
     }
 
     @Override
     public String getIcon() {
-        return null;
+        return icon;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getDefTheme() {
+        return defTheme;
+    }
+
+    public void setDefTheme(String defTheme) {
+        this.defTheme = defTheme;
+    }
+
+    @Override
+    public String getOrgIcon() {
+        return orgIcon;
+    }
+
+    @Override
+    public void setOrgIcon(String orgIcon) {
+        this.orgIcon = orgIcon;
     }
 }
